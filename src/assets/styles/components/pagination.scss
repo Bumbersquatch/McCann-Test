@@ -1,0 +1,18 @@
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    justify-content: space-between;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    padding: 15px;
+    align-items: center;
+    .btn{
+        margin: 5px;
+    }
+    .page-num{
+        font-weight: bold;
+        color:$dark;
+    }
+}

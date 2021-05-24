@@ -1,1 +1,19 @@
 @import '~bootstrap/scss/bootstrap';
+@import './variables.scss';
+@import './components/postItem.scss';
+@import './components/pagination.scss';
+@import './components/filter.scss';
+
+a{
+    color: $accent;
+    &:hover{
+        color: darken($accent, 10)
+    }
+}
+.btn.btn-primary{
+    background-color: $accent;
+    border:none;
+    box-shadow: none;
+    outline: none;
+    font-weight: bold;
+}

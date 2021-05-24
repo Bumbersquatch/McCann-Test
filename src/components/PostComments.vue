@@ -1,10 +1,10 @@
 <template v-if="postId">
     <a href="#" class="btn btn-primary card-link" @click.prevent="commentsFetch">{{buttonText}}</a>
-    <div v-if="showComments">
-        <div v-for="comment in comments" :key="comment.id" >
-            <p>{{comment.email}}</p>
-            <p>{{comment.name}}</p>
-            <p>{{comment.body}}</p>
+    <div class="comments" v-if="showComments">
+        <div class="comment" v-for="comment in comments" :key="comment.id" >
+            <p class="name">{{comment.email}}:</p>
+            <p class="title">{{comment.name}}</p>
+            <p class="body">{{comment.body}}</p>
         </div>
     </div>
 </template>
@@ -28,9 +28,7 @@ export default {
       this.buttonText = this.showComments ? 'Hide Comments' : 'Show Comments'
       if (!this.comments) {
         const url = `https://jsonplaceholder.typicode.com/posts/${this.postId}/comments`
-        fetch(url)
-        .then((res) => res.json())
-        .then(data => {
+        fetch(url).then((res) => res.json()).then(data => {
             this.comments = data
         })
         .catch(err => console.log('comments fetch error:', err.message))

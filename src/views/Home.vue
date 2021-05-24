@@ -1,18 +1,77 @@
-<template>
-  <div class="home">
+<template v-if="posts && authors">
+  <div class="home container">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Filter @postsFetch="postsFetch" :authors="authors" :numPosts="numPosts" />
+    <template v-for="post in posts" :key="post.id">
+        <PostItem :post="post" :authors="authors" />
+    </template>
+    <Pagination v-if="links && currentPage" :page="currentPage" :total="totalPages" :links="links" @postsFetch="postsFetch" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import PostItem from '@/components/PostItem.vue'
+import Pagination from '@/components/Pagination.vue'
+import Filter from '@/components/Filter.vue'
+import parseLinkHeader from 'parse-link-header'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    PostItem,
+    Pagination,
+    Filter
+  },
+  data () {
+    return {
+      posts: null,
+      authors: null,
+      numPosts: 5,
+      total: 0,
+      links: null
+    }
+  },
+  mounted () {
+    this.postsFetch(`https://jsonplaceholder.typicode.com/posts?_page=${this.currentPage}&_limit=${this.numPosts}`)
+    this.authorFetch(`https://jsonplaceholder.typicode.com/users`)
+  },
+  computed: {
+    currentPage() {
+      let page = 1;
+      if (this.links) {
+          page = this.links.next != null ? parseInt(this.links.next._page) - 1 : parseInt(this.links.last._page);
+      }
+      return page;
+    },
+    totalPages() {
+      let pages = 1
+      if (this.total > this.numPosts) {
+        pages = Math.round(this.total / this.numPosts)
+      }
+      return pages;
+    }
+  },
+  methods: {
+    postsFetch(url) {
+      fetch(url)
+      .then((res) => {
+        this.total = res.headers.get('x-total-count')
+        this.links = parseLinkHeader(res.headers.get('link'))
+        return res.json()
+      })
+      .then(data => {
+        this.posts = data
+      })
+      .catch(err => console.log('posts fetch error:', err.message))
+    },
+    authorFetch(url) {
+      fetch(url)
+      .then((res) => res.json())
+      .then(data => {
+        this.authors = data
+      })
+      .catch(err => console.log('author fetch error:', err.message))
+    }
   }
 }
 </script>

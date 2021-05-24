@@ -1,8 +1,8 @@
 <template v-if="post">
-    <div class="card mb-3">
+    <div class="card">
     <div class="card-body ">
         <h5 class="card-title">{{post.title}}</h5>
-        <h6 v-if="authorPost" class="card-subtitle mb-2 text-muted">{{authorPost.name}}</h6>
+        <h6 v-if="authorPost" class="card-subtitle">{{authorPost.name}}</h6>
         <p class="card-text">{{post.body}}</p>
         <PostComments :postId="post.id" />
     </div>

@@ -1,0 +1,38 @@
+.card{
+    text-align: left;
+    border-radius: 0;
+    border: none;
+    border-bottom: solid 3px $dark;
+    transition: all 2s;
+    .card-title{
+        color:$dark;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .card-subtitle{
+        color:$accent;
+        margin:10px 0;
+    }
+    .comments{
+        margin:0;
+        font-size: 0.9em;
+        .comment{
+            margin-bottom: 10px;
+            padding:10px 0;
+            border-bottom:solid 1px $dark;
+            &:last-child{
+                border:none;
+            }
+            p{
+                margin:0;
+                &.name{
+                    color:$accent;
+                }
+                &.title{
+                    font-weight: bold;
+                }
+            }
+
+        }
+    }
+}

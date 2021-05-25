@@ -32,7 +32,7 @@ export default {
     }
   },
   mounted () {
-    this.postsFetch(`https://jsonplaceholder.typicode.com/posts?_page=${this.currentPage}&_limit=${this.numPosts}`)
+    this.postsFetch({url:`https://jsonplaceholder.typicode.com/posts?_page=${this.currentPage}&_limit=${this.numPosts}`})
     this.authorFetch(`https://jsonplaceholder.typicode.com/users`)
   },
   computed: {
@@ -52,8 +52,8 @@ export default {
     }
   },
   methods: {
-    postsFetch(url) {
-      fetch(url)
+    postsFetch(param) {
+      fetch(param.url)
       .then((res) => {
         this.total = res.headers.get('x-total-count')
         this.links = parseLinkHeader(res.headers.get('link'))
@@ -61,6 +61,9 @@ export default {
       })
       .then(data => {
         this.posts = data
+        if(param.done) {
+          param.done(true)
+        }
       })
       .catch(err => console.log('posts fetch error:', err.message))
     },

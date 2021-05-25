@@ -21,9 +21,9 @@ export default {
   methods:{
       authorFilterChange(event) {
         if(event.target.value && event.target.value > 0) {
-            this.$emit('postsFetch', `https://jsonplaceholder.typicode.com/posts?_page=1&_limit=${this.numPosts}&userId=${event.target.value}`)
+            this.$emit('postsFetch', {url: `https://jsonplaceholder.typicode.com/posts?_page=1&_limit=${this.numPosts}&userId=${event.target.value}`})
         } else {
-            this.$emit('postsFetch', `https://jsonplaceholder.typicode.com/posts?_page=1&_limit=${this.numPosts}`)
+            this.$emit('postsFetch', {url: `https://jsonplaceholder.typicode.com/posts?_page=1&_limit=${this.numPosts}`})
         }
       }
   }

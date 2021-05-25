@@ -26,7 +26,7 @@ describe('Filter.vue', () => {
     const spy = jest.spyOn(wrapper.vm, 'authorFilterChange')
     wrapper.find('#filter').findAll('option')[2].trigger('change')
     expect(spy).toHaveBeenCalled()
-    expect(wrapper.emitted().postsFetch[0]).toEqual([`https://jsonplaceholder.typicode.com/posts?_page=1&_limit=${model.numPosts}&userId=${model.authors[0].id}`])
+    expect(wrapper.emitted().postsFetch[0]).toEqual([{url: `https://jsonplaceholder.typicode.com/posts?_page=1&_limit=${model.numPosts}&userId=${model.authors[0].id}`}])
   })
 
   it('calls authorFilterChange on select all and fires event', () => {
@@ -36,6 +36,6 @@ describe('Filter.vue', () => {
     const spy = jest.spyOn(wrapper.vm, 'authorFilterChange')
     wrapper.find('#filter').findAll('option')[0].trigger('change')
     expect(spy).toHaveBeenCalled()
-    expect(wrapper.emitted().postsFetch[0]).toEqual([`https://jsonplaceholder.typicode.com/posts?_page=1&_limit=${model.numPosts}`])
+    expect(wrapper.emitted().postsFetch[0]).toEqual([{ url: `https://jsonplaceholder.typicode.com/posts?_page=1&_limit=${model.numPosts}`}])
   })
 })

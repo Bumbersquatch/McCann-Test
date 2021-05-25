@@ -25,43 +25,31 @@ describe('Pagination.vue', () => {
     const wrapper = shallowMount(Pagination, {
       props: model
     })
-    const spy = jest.spyOn(wrapper.vm, 'paginationLink')
-    wrapper.find('.next').trigger('click.prevent')
-    expect(spy).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalledWith(model.links.next.rel)
-    expect(wrapper.emitted().postsFetch[0]).toEqual([model.links.next.url])
+    wrapper.vm.paginationLink(model.links.next.rel)
+    expect(wrapper.emitted().postsFetch[0][0].url).toEqual(model.links.next.url)
   })
 
   it('calls prev pagination link with correct rel and emits correct url', () => {
     const wrapper = shallowMount(Pagination, {
       props: model
     })
-    const spy = jest.spyOn(wrapper.vm, 'paginationLink')
-    wrapper.find('.prev').trigger('click.prevent')
-    expect(spy).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalledWith(model.links.prev.rel)
-    expect(wrapper.emitted().postsFetch[0]).toEqual([model.links.prev.url])
+    wrapper.vm.paginationLink(model.links.prev.rel)
+    expect(wrapper.emitted().postsFetch[0][0].url).toEqual(model.links.prev.url)
   })
 
   it('calls first pagination link with correct rel and emits correct url', () => {
     const wrapper = shallowMount(Pagination, {
       props: model
     })
-    const spy = jest.spyOn(wrapper.vm, 'paginationLink')
-    wrapper.find('.first').trigger('click.prevent')
-    expect(spy).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalledWith(model.links.first.rel)
-    expect(wrapper.emitted().postsFetch[0]).toEqual([model.links.first.url])
+    wrapper.vm.paginationLink(model.links.first.rel)
+    expect(wrapper.emitted().postsFetch[0][0].url).toEqual(model.links.first.url)
   })
   
   it('calls last pagination link with correct rel and emits correct url', () => {
     const wrapper = shallowMount(Pagination, {
       props: model
     })
-    const spy = jest.spyOn(wrapper.vm, 'paginationLink')
-    wrapper.find('.last').trigger('click.prevent')
-    expect(spy).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalledWith(model.links.last.rel)
-    expect(wrapper.emitted().postsFetch[0]).toEqual([model.links.last.url])
+    wrapper.vm.paginationLink(model.links.last.rel)
+    expect(wrapper.emitted().postsFetch[0][0].url).toEqual(model.links.last.url)
   })
 })

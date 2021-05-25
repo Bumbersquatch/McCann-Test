@@ -5,7 +5,7 @@
     <template v-for="post in posts" :key="post.id">
         <PostItem :post="post" :authors="authors" />
     </template>
-    <Pagination v-if="links && currentPage" :page="currentPage" :total="totalPages" :links="links" @postsFetch="postsFetch" />
+    <Pagination :page="currentPage" :total="totalPages" :links="links" @postsFetch="postsFetch" />
   </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
     return {
       posts: null,
       authors: null,
-      numPosts: 5,
+      numPosts: 8,
       total: 0,
       links: null
     }
@@ -46,7 +46,7 @@ export default {
     totalPages() {
       let pages = 1
       if (this.total > this.numPosts) {
-        pages = Math.round(this.total / this.numPosts)
+        pages = Math.ceil(this.total / this.numPosts)
       }
       return pages;
     }

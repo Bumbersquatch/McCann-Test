@@ -1,5 +1,5 @@
-<template v-if="links">
-    <div class="pagination ">
+<template>
+    <div class="pagination" v-if="links">
       <div>
         <loading-button class="btn btn-primary first" :class="{disabled: links.first && links.first._page == page}" :click="paginationLink" params="first" :loading="loading.first">First</loading-button>
         <loading-button class="btn btn-primary prev" :class="{disabled: !links.prev}" :click="paginationLink" params="prev" :loading="loading.prev">Prev</loading-button>
@@ -9,6 +9,9 @@
         <loading-button class="btn btn-primary next" :class="{disabled: !links.next}" :click="paginationLink" params="next" :loading="loading.next">Next</loading-button>
         <loading-button class="btn btn-primary last" :class="{disabled: links.last && links.last._page == page}" :click="paginationLink" params="last" :loading="loading.last">Last</loading-button>
       </div>
+    </div>
+    <div v-else class="pagination">
+      <div class="page-num w-100 text-center">{{page}} / {{total}}</div>
     </div>
 </template>
 
